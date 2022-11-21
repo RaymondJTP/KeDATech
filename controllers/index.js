@@ -13,7 +13,7 @@ class Controller{
     static async insertJenisKendaraan(req,res,next){
         try {
             const {jenis,harga} = req.body
-            const result = kendaraan.create({jenis,harga})
+            const result = await kendaraan.create({jenis,harga})
             res.status(201).json(result)
         } catch (err) {
             res.json(err)
