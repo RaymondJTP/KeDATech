@@ -10,14 +10,26 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      parkir.belongsTo(models.kendaraan, {foreignKey : 'jenis'})
     }
   };
   parkir.init({
     plat: DataTypes.STRING,
     jenis: DataTypes.INTEGER,
-    waktuMasuk: DataTypes.DATE,
-    waktuKeluar: DataTypes.DATE,
+    waktuMasuk: {
+      type : DataTypes.DATE,
+      validate : {
+        isDate: { msg: "Masukkan waktu dengan format YYYY/MM/DD HH:MM:SS seperti 2022/09/17 06:00:00"},
+       
+      } 
+    },
+    waktuKeluar: {
+      type : DataTypes.DATE,
+      validate : {
+        isDate: { msg: "Masukkan waktu dengan format YYYY/MM/DD HH:MM:SS seperti 2022/09/17 06:00:00"},
+       
+      } 
+    },
     biayaParkir: DataTypes.INTEGER
   }, {
     sequelize,

@@ -11,8 +11,11 @@ module.exports = {
       jenis: {
         type: Sequelize.STRING
       },
-      harga: {
+      hargaPerJam: {
         type: Sequelize.INTEGER
+      },
+      hargaPerHari: {
+        type : Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
