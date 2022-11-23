@@ -23,9 +23,23 @@ class Controller{
     static async insertParkir(req,res,next){
         try {
             const {plat,jenis,waktuMasuk, waktuKeluar} = req.body
+            
             if(!jenis){
                 throw ({name : 'badRequest', message : 'Isi jenis kendaraan dengan id kendaraan'})
             }
+            function cekTahun(tanggal){
+                let tahun = ''
+                for(let i = 0; i < tanggal.length; i++){
+                    if(i == 4) break;
+                    tahun += tanggal[i]
+                }
+                return isNaN(tahun)
+            }
+
+            if(cekTahun(waktuMasuk) || cekTahun(waktuKeluar)){
+                throw ({name : 'badRequest', message : 'Masukkan waktu dengan format YYYY/MM/DD HH:MM:SS seperti 2022/09/17 06:00:00'})
+            }
+            
             let diff = Math.abs(new Date(waktuKeluar) - new Date(waktuMasuk))
             let menit = Math.ceil((diff/1000)/60)
             let harga

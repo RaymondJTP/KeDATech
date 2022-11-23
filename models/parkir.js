@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     waktuMasuk: {
       type : DataTypes.DATE,
       allowNull: false,
+      isDate: true,
       validate : {
         isDate: { msg: "Masukkan waktu dengan format YYYY/MM/DD HH:MM:SS seperti 2022/09/17 06:00:00"},
         notNull : {msg : "Masukkan waktu dengan format YYYY/MM/DD HH:MM:SS seperti 2022/09/17 06:00:00"}
@@ -34,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     waktuKeluar: {
       type : DataTypes.DATE,
       allowNull: false,
+      isDate: true,
       validate : {
         isDate: { msg: "Masukkan waktu dengan format YYYY/MM/DD HH:MM:SS seperti 2022/09/17 06:00:00"},
         notNull : {msg : "Masukkan waktu dengan format YYYY/MM/DD HH:MM:SS seperti 2022/09/17 06:00:00"}
