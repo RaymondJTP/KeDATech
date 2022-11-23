@@ -15,19 +15,28 @@ module.exports = (sequelize, DataTypes) => {
   };
   parkir.init({
     plat: DataTypes.STRING,
-    jenis: DataTypes.INTEGER,
+    jenis: {
+      type : DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty : {msg : "Isi jenis kendaraan dengan id kendaraan"},
+        notNull : {msg : "Isi jenis kendaraan dengan id kendaraan"}
+      }
+    },
     waktuMasuk: {
       type : DataTypes.DATE,
+      allowNull: false,
       validate : {
         isDate: { msg: "Masukkan waktu dengan format YYYY/MM/DD HH:MM:SS seperti 2022/09/17 06:00:00"},
-       
+        notNull : {msg : "Masukkan waktu dengan format YYYY/MM/DD HH:MM:SS seperti 2022/09/17 06:00:00"}
       } 
     },
     waktuKeluar: {
       type : DataTypes.DATE,
+      allowNull: false,
       validate : {
         isDate: { msg: "Masukkan waktu dengan format YYYY/MM/DD HH:MM:SS seperti 2022/09/17 06:00:00"},
-       
+        notNull : {msg : "Masukkan waktu dengan format YYYY/MM/DD HH:MM:SS seperti 2022/09/17 06:00:00"}
       } 
     },
     biayaParkir: DataTypes.INTEGER

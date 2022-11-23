@@ -6,7 +6,7 @@ class Controller{
             const result = await kendaraan.findAll()
             res.status(200).json(result)
         } catch (err) {
-            res.json(err)
+            next(err)
         }
     }
 
@@ -16,13 +16,16 @@ class Controller{
             const result = await kendaraan.create({jenis,hargaPerJam,hargaPerHari})
             res.status(201).json(result)
         } catch (err) {
-            res.json(err)
+            next(err)
         }
     }
 
     static async insertParkir(req,res,next){
         try {
             const {plat,jenis,waktuMasuk, waktuKeluar} = req.body
+            if(!jenis){
+                throw ({name : 'badRequest', message : 'Isi jenis kendaraan dengan id kendaraan'})
+            }
             let diff = Math.abs(new Date(waktuKeluar) - new Date(waktuMasuk))
             let menit = Math.ceil((diff/1000)/60)
             let harga
@@ -54,6 +57,10 @@ class Controller{
                 }
             })
 
+            if(!jenisKendaraan){
+                throw ({name : 'notFound', message: `jenis kendaraan dengan id ${jenis} tidak ditemukan`})
+            }
+
             harga = hari * jenisKendaraan.hargaPerHari + jam * jenisKendaraan.hargaPerJam
 
             const insertParkir = await parkir.create({
@@ -62,8 +69,7 @@ class Controller{
 
             res.status(201).json(insertParkir)
         } catch (err) {
-            console.log(err);
-            res.json(err.errors[0].message)
+            next(err)
         }
     }
 
@@ -74,7 +80,7 @@ class Controller{
             })
             res.status(200).json(result)
         } catch (err) {
-            console.log(err);
+            next(err)
         }
     }
 }
