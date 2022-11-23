@@ -9,9 +9,9 @@ app.use('/', router)
 
 
 
-app.listen(port, () => {
-console.log(`Berhasil run di port ${port}`)
-})
+// app.listen(port, () => {
+// console.log(`Berhasil run di port ${port}`)
+// })
 
 
 module.exports = app
